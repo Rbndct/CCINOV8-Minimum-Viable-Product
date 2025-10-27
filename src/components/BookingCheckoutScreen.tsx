@@ -15,6 +15,7 @@ export function BookingCheckoutScreen({ onBack, onConfirm }: BookingCheckoutScre
   const [startDate, setStartDate] = useState<Date | undefined>(new Date(2025, 9, 28));
   const [endDate, setEndDate] = useState<Date | undefined>(new Date(2025, 9, 29));
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [agreedToLiability, setAgreedToLiability] = useState(false);
 
   const days = startDate && endDate ? Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)) : 0;
   const dailyRate = 250;
@@ -156,7 +157,7 @@ export function BookingCheckoutScreen({ onBack, onConfirm }: BookingCheckoutScre
 
           {/* Terms */}
           <Card className="p-4 mb-4 rounded-2xl bg-secondary/50 border-border">
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-3 mb-4">
               <Checkbox
                 id="terms"
                 checked={agreedToTerms}
@@ -166,6 +167,20 @@ export function BookingCheckoutScreen({ onBack, onConfirm }: BookingCheckoutScre
               <label htmlFor="terms" className="cursor-pointer flex-1">
                 <p className="text-foreground/80 leading-relaxed">
                   I agree to the <span className="text-primary">Damage & Liability Clause</span> and understand that I'm responsible for the item during the rental period.
+                </p>
+              </label>
+            </div>
+            
+            <div className="flex items-start gap-3 pt-4 border-t border-border">
+              <Checkbox
+                id="liability"
+                checked={agreedToLiability}
+                onCheckedChange={(checked) => setAgreedToLiability(checked as boolean)}
+                className="mt-1"
+              />
+              <label htmlFor="liability" className="cursor-pointer flex-1">
+                <p className="text-foreground/80 leading-relaxed">
+                  <span className="text-destructive">*REQUIRED:</span> I have read and agree to the <span className="text-primary">Clear Damage & Liability Clause</span> and the <span className="text-primary">Exculpatory Clause</span>.
                 </p>
               </label>
             </div>
@@ -185,7 +200,7 @@ export function BookingCheckoutScreen({ onBack, onConfirm }: BookingCheckoutScre
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-border px-6 py-4 shadow-lg">
           <Button
             onClick={onConfirm}
-            disabled={!agreedToTerms}
+            disabled={!agreedToTerms || !agreedToLiability}
             className="w-full h-12 bg-primary hover:bg-primary/90 rounded-xl"
           >
             Confirm & Pay ₱{total}

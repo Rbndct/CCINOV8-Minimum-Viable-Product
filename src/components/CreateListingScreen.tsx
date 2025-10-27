@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Card } from "./ui/card";
+import { Checkbox } from "./ui/checkbox";
 import { ArrowLeft, Upload, DollarSign, Shield, CheckCircle } from "lucide-react";
 
 interface CreateListingScreenProps {
@@ -15,6 +16,7 @@ export function CreateListingScreen({ onBack, onPublish }: CreateListingScreenPr
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [deposit, setDeposit] = useState("1000");
+  const [agreedToLiability, setAgreedToLiability] = useState(false);
 
   if (step === 1) {
     return (
@@ -232,7 +234,7 @@ export function CreateListingScreen({ onBack, onPublish }: CreateListingScreenPr
             </div>
           </Card>
 
-          <div className="bg-primary/10 border border-primary/20 rounded-xl p-4">
+          <div className="bg-primary/10 border border-primary/20 rounded-xl p-4 mb-6">
             <div className="flex items-start gap-2">
               <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
               <p className="text-foreground/80">
@@ -240,12 +242,29 @@ export function CreateListingScreen({ onBack, onPublish }: CreateListingScreenPr
               </p>
             </div>
           </div>
+
+          <Card className="p-4 rounded-2xl bg-secondary/50 border-border">
+            <div className="flex items-start gap-3">
+              <Checkbox
+                id="liability"
+                checked={agreedToLiability}
+                onCheckedChange={(checked) => setAgreedToLiability(checked as boolean)}
+                className="mt-1"
+              />
+              <label htmlFor="liability" className="cursor-pointer flex-1">
+                <p className="text-foreground/80 leading-relaxed">
+                  <span className="text-destructive">*REQUIRED:</span> I have read and agree to the <span className="text-primary">Clear Damage & Liability Clause</span> and the <span className="text-primary">Exculpatory Clause</span>.
+                </p>
+              </label>
+            </div>
+          </Card>
         </div>
 
         {/* Bottom CTA */}
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-border px-6 py-4 shadow-lg">
           <Button
             onClick={onPublish}
+            disabled={!agreedToLiability}
             className="w-full h-12 bg-primary hover:bg-primary/90 rounded-xl"
           >
             Publish Listing

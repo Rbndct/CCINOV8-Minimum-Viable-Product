@@ -8,6 +8,7 @@ interface HomeScreenProps {
   onItemClick: (itemId: string) => void;
   onCategoryClick: (category: string) => void;
   onNavigate: (screen: string) => void;
+  filterCategory?: string;
 }
 
 const listings = [
@@ -17,7 +18,8 @@ const listings = [
     price: 250,
     rating: 4.8,
     image: "https://images.unsplash.com/photo-1689935421853-cb23a0bc92e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb3dlciUyMGRyaWxsJTIwdG9vbHN8ZW58MXx8fHwxNzYxNTI2MzAyfDA&ixlib=rb-4.1.0&q=80&w=1080",
-    location: "Quezon City"
+    location: "Quezon City",
+    category: "tools"
   },
   {
     id: "2",
@@ -25,7 +27,8 @@ const listings = [
     price: 350,
     rating: 5.0,
     image: "https://images.unsplash.com/photo-1549030782-4935f80baeb6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsYWRkZXIlMjBlcXVpcG1lbnR8ZW58MXx8fHwxNzYxNTYwMDkxfDA&ixlib=rb-4.1.0&q=80&w=1080",
-    location: "Makati"
+    location: "Makati",
+    category: "tools"
   },
   {
     id: "3",
@@ -33,7 +36,8 @@ const listings = [
     price: 1200,
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1503542149301-75886cd3030c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwYXJ0eSUyMHRlbnQlMjBvdXRkb29yfGVufDF8fHx8MTc2MTU2MDA5Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-    location: "Pasig"
+    location: "Pasig",
+    category: "spaces"
   },
   {
     id: "4",
@@ -41,7 +45,8 @@ const listings = [
     price: 500,
     rating: 4.7,
     image: "https://images.unsplash.com/photo-1549636367-13c144c47063?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnYXJhZ2UlMjB3b3Jrc2hvcCUyMHNwYWNlfGVufDF8fHx8MTc2MTU2MDA5M3ww&ixlib=rb-4.1.0&q=80&w=1080",
-    location: "Mandaluyong"
+    location: "Mandaluyong",
+    category: "spaces"
   },
   {
     id: "5",
@@ -49,7 +54,8 @@ const listings = [
     price: 800,
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1565548058664-033014b26a80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYW1lcmElMjBlcXVpcG1lbnQlMjBwaG90b2dyYXBoeXxlbnwxfHx8fDE3NjE0OTYyMzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    location: "BGC"
+    location: "BGC",
+    category: "tools"
   },
   {
     id: "6",
@@ -57,11 +63,16 @@ const listings = [
     price: 1500,
     rating: 5.0,
     image: "https://images.unsplash.com/photo-1702746708573-9a9a8ab86679?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb3VuZCUyMHN5c3RlbSUyMHNwZWFrZXJzfGVufDF8fHx8MTc2MTU2MDA5M3ww&ixlib=rb-4.1.0&q=80&w=1080",
-    location: "Taguig"
+    location: "Taguig",
+    category: "tools"
   }
 ];
 
-export function HomeScreen({ onItemClick, onCategoryClick, onNavigate }: HomeScreenProps) {
+export function HomeScreen({ onItemClick, onCategoryClick, onNavigate, filterCategory }: HomeScreenProps) {
+  const filteredListings = filterCategory 
+    ? listings.filter(listing => listing.category === filterCategory)
+    : listings;
+
   return (
     <div className="h-full flex flex-col bg-background">
       {/* Header */}
@@ -87,7 +98,7 @@ export function HomeScreen({ onItemClick, onCategoryClick, onNavigate }: HomeScr
               className="p-4 bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20 rounded-2xl cursor-pointer hover:shadow-md transition-shadow"
             >
               <Wrench className="w-8 h-8 text-primary mb-2" />
-              <h4>Tools & Equipment</h4>
+              <h4>réntahán Tools</h4>
               <p className="text-muted-foreground">Power tools, ladders, more</p>
             </Card>
             <Card
@@ -95,7 +106,7 @@ export function HomeScreen({ onItemClick, onCategoryClick, onNavigate }: HomeScr
               className="p-4 bg-gradient-to-br from-accent/10 to-accent/5 border-accent/20 rounded-2xl cursor-pointer hover:shadow-md transition-shadow"
             >
               <Home className="w-8 h-8 text-accent mb-2" />
-              <h4>Spaces & Workshops</h4>
+              <h4>réntahán Space</h4>
               <p className="text-muted-foreground">Studios, garages, venues</p>
             </Card>
           </div>
@@ -104,11 +115,13 @@ export function HomeScreen({ onItemClick, onCategoryClick, onNavigate }: HomeScr
         {/* Nearby Listings */}
         <div>
           <div className="flex items-center justify-between mb-3">
-            <h3>Nearby Listings</h3>
-            <button className="text-primary">See All</button>
+            <h3>{filterCategory ? `${filterCategory === 'tools' ? 'réntahán Tools' : 'réntahán Space'}` : 'Nearby Listings'}</h3>
+            <button className="text-primary" onClick={() => onCategoryClick('')}>
+              {filterCategory ? 'Clear Filter' : 'See All'}
+            </button>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            {listings.map((listing) => (
+            {filteredListings.map((listing) => (
               <Card
                 key={listing.id}
                 onClick={() => onItemClick(listing.id)}

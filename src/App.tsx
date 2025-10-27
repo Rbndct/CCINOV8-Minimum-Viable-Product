@@ -32,6 +32,7 @@ type Screen =
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>("login");
   const [showVerificationModal, setShowVerificationModal] = useState(false);
+  const [filterCategory, setFilterCategory] = useState<string>("");
 
   const handleLogin = () => {
     setCurrentScreen("home");
@@ -43,6 +44,10 @@ export default function App() {
   const handleVerify = () => {
     setShowVerificationModal(false);
     toast.success("Verification submitted! We'll review it within 24 hours.");
+  };
+
+  const handleCategoryClick = (category: string) => {
+    setFilterCategory(category);
   };
 
   const handleBookingConfirm = () => {
@@ -80,11 +85,12 @@ export default function App() {
         {currentScreen === "home" && (
           <HomeScreen
             onItemClick={() => setCurrentScreen("item-details")}
-            onCategoryClick={() => toast.info("Category filter coming soon!")}
+            onCategoryClick={handleCategoryClick}
             onNavigate={(screen) => {
               if (screen === "listings") setCurrentScreen("my-listings");
               if (screen === "search") toast.info("Advanced search coming soon!");
             }}
+            filterCategory={filterCategory}
           />
         )}
 

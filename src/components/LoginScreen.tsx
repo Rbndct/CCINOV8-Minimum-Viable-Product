@@ -1,6 +1,7 @@
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Mail, Phone } from "lucide-react";
+import logo from "figma:asset/c4070c3b71508581008ad50cb65e0420447654b0.png";
 
 interface LoginScreenProps {
   onLogin: () => void;
@@ -12,12 +13,10 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
       <div className="flex-1 flex flex-col items-center justify-center w-full max-w-sm">
         <div className="text-center mb-12">
           <div className="mb-4">
-            <div className="w-20 h-20 bg-primary rounded-3xl mx-auto flex items-center justify-center shadow-lg">
-              <span className="text-white text-3xl">🏠</span>
-            </div>
+            <img src={logo} alt="réntahán logo" className="w-32 h-32 mx-auto" />
           </div>
           <h1 className="text-primary mb-2">réntahán</h1>
-          <p className="text-muted-foreground">The Community's Shared Garage</p>
+          <p className="text-muted-foreground">Community's Shared Garage</p>
         </div>
 
         <div className="w-full space-y-4">
