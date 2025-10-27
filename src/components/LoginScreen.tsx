@@ -1,0 +1,83 @@
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Mail, Phone } from "lucide-react";
+
+interface LoginScreenProps {
+  onLogin: () => void;
+}
+
+export function LoginScreen({ onLogin }: LoginScreenProps) {
+  return (
+    <div className="flex flex-col items-center justify-between h-full px-6 py-12 bg-gradient-to-b from-background to-secondary/30">
+      <div className="flex-1 flex flex-col items-center justify-center w-full max-w-sm">
+        <div className="text-center mb-12">
+          <div className="mb-4">
+            <div className="w-20 h-20 bg-primary rounded-3xl mx-auto flex items-center justify-center shadow-lg">
+              <span className="text-white text-3xl">🏠</span>
+            </div>
+          </div>
+          <h1 className="text-primary mb-2">réntahán</h1>
+          <p className="text-muted-foreground">The Community's Shared Garage</p>
+        </div>
+
+        <div className="w-full space-y-4">
+          <div>
+            <Input
+              type="email"
+              placeholder="Email address"
+              className="h-12 bg-white border-border rounded-xl"
+            />
+          </div>
+          <div>
+            <Input
+              type="password"
+              placeholder="Password"
+              className="h-12 bg-white border-border rounded-xl"
+            />
+          </div>
+          <Button
+            onClick={onLogin}
+            className="w-full h-12 bg-primary hover:bg-primary/90 rounded-xl shadow-sm"
+          >
+            Sign In
+          </Button>
+
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-border"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="px-4 bg-background text-muted-foreground">or continue with</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Button
+              variant="outline"
+              onClick={onLogin}
+              className="h-12 rounded-xl border-border bg-white"
+            >
+              <Mail className="mr-2 h-4 w-4" />
+              Google
+            </Button>
+            <Button
+              variant="outline"
+              onClick={onLogin}
+              className="h-12 rounded-xl border-border bg-white"
+            >
+              <Phone className="mr-2 h-4 w-4" />
+              Phone
+            </Button>
+          </div>
+
+          <p className="text-center text-muted-foreground mt-6">
+            Don't have an account?{" "}
+            <button onClick={onLogin} className="text-primary">
+              Sign Up
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
