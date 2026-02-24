@@ -12,11 +12,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
     <div className="flex flex-col items-center justify-between h-full px-6 py-12 bg-gradient-to-b from-background to-secondary/30">
       <div className="flex-1 flex flex-col items-center justify-center w-full max-w-sm">
         <div className="text-center mb-12">
-          <div className="mb-4">
-            <img src={logo} alt="réntahán logo" className="w-32 h-32 mx-auto" />
-          </div>
-          <h1 className="text-primary mb-2">réntahán</h1>
-          <p className="text-muted-foreground">Community's Shared Garage</p>
+          <img src={logo} alt="réntahán - Community's Shared Garage" className="w-48 h-48 mx-auto" />
         </div>
 
         <div className="w-full space-y-4">
